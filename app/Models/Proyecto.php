@@ -6,7 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyecto extends Model
 {
-    // Método para simular la base de datos según el requerimiento del examen
+    protected $table = 'proyectos';
+
+    protected $fillable = [
+        'nombre',
+        'fecha_inicio',
+        'estado',
+        'responsable',
+        'monto',
+        'created_by',
+    ];
+
+    
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'created_by');
+    }
+
+    
     public static function obtenerDatosEstaticos()
     {
         return collect([
@@ -16,7 +33,8 @@ class Proyecto extends Model
                 'fecha_inicio' => '2026-11-01',
                 'estado' => 'En proceso',
                 'responsable' => 'Tomás López',
-                'monto' => 1250000
+                'monto' => 1250000,
+                'created_by' => 1,
             ],
             [
                 'id' => 2,
@@ -24,8 +42,9 @@ class Proyecto extends Model
                 'fecha_inicio' => '2026-11-15',
                 'estado' => 'Planificado',
                 'responsable' => 'Siboney',
-                'monto' => 850000
-            ]
+                'monto' => 850000,
+                'created_by' => 1,
+            ],
         ]);
     }
 }
